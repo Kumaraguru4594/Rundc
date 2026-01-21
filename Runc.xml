@@ -1,0 +1,45 @@
+<joblist>
+  <job>
+    <name>STOP_IO_THEN_BATCH_SEQUENTIAL</name>
+    <description>
+      Sequential stop: IO nodes one-by-one first, then Batch nodes one-by-one.
+    </description>
+
+    <executionEnabled>true</executionEnabled>
+    <scheduleEnabled>true</scheduleEnabled>
+
+    <dispatch>
+      <!-- KEY: threadcount=1 makes node execution sequential -->
+      <threadcount>1</threadcount>
+      <keepgoing>false</keepgoing>
+
+      <!-- Optional: controls node processing order -->
+      <rankAttribute>nodename</rankAttribute>
+      <rankOrder>ascending</rankOrder>
+    </dispatch>
+
+    <nodeFilterEditable>false</nodeFilterEditable>
+
+    <workflow strategy="node-first">
+
+      <!-- STEP 1: Stop IO sequentially across IO nodes -->
+      <command>
+        <description>Stop IO sequentially</description>
+        <exec>bash /opt/ops/stop_io.sh</exec>
+        <nodefilters>
+          <filter>tags:io</filter>
+        </nodefilters>
+      </command>
+
+      <!-- STEP 2: Stop Batch sequentially across Batch nodes -->
+      <command>
+        <description>Stop Batch sequentially</description>
+        <exec>bash /opt/ops/stop_batch.sh</exec>
+        <nodefilters>
+          <filter>tags:batch</filter>
+        </nodefilters>
+      </command>
+
+    </workflow>
+  </job>
+</joblist>
