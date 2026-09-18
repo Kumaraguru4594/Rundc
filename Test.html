@@ -1,0 +1,450 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Professional Glass Status Tiles</title>  <style>  
+  
+/* =====================================================  
+   GLOBAL  
+===================================================== */  
+  
+* {  
+    box-sizing: border-box;  
+}  
+  
+body {  
+    margin: 0;  
+    min-height: 100vh;  
+  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+  
+    background: #000000;  
+  
+    font-family: Arial, Helvetica, sans-serif;  
+}  
+  
+  
+/* =====================================================  
+   LAYOUT  
+===================================================== */  
+  
+.tiles {  
+    display: flex;  
+    gap: 38px;  
+    padding: 60px;  
+}  
+  
+  
+/* =====================================================  
+   BASE LIQUID GLASS TILE  
+===================================================== */  
+  
+.tile {  
+    --main: 18, 122, 135;  
+    --border: #32C7D0;  
+  
+    position: relative;  
+  
+    width: 250px;  
+    height: 145px;  
+  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+  
+    overflow: hidden;  
+    isolation: isolate;  
+  
+    border-radius: 24px;  
+  
+    border: 2px solid var(--border);  
+  
+    background:  
+  
+        /* subtle specular light */  
+        radial-gradient(  
+            circle at 24% 12%,  
+            rgba(255,255,255,0.22),  
+            rgba(255,255,255,0.07) 25%,  
+            transparent 43%  
+        ),  
+  
+        /* coloured glass */  
+        linear-gradient(  
+            145deg,  
+            rgba(var(--main),0.88),  
+            rgba(var(--main),0.48) 48%,  
+            rgba(var(--main),0.72)  
+        );  
+  
+    backdrop-filter:  
+        blur(12px)  
+        saturate(175%);  
+  
+    -webkit-backdrop-filter:  
+        blur(12px)  
+        saturate(175%);  
+  
+    transition:  
+        border-color 0.16s ease,  
+        box-shadow 0.16s ease;  
+}  
+  
+  
+/* =====================================================  
+   INNER GLASS  
+===================================================== */  
+  
+.tile::before {  
+    content: "";  
+  
+    position: absolute;  
+    inset: 6px;  
+  
+    z-index: -1;  
+  
+    border-radius: 18px;  
+  
+    background:  
+  
+        /* upper glass reflection */  
+        linear-gradient(  
+            180deg,  
+            rgba(255,255,255,0.38) 0%,  
+            rgba(255,255,255,0.13) 17%,  
+            rgba(255,255,255,0.03) 37%,  
+            transparent 52%  
+        ),  
+  
+        /* inner depth */  
+        linear-gradient(  
+            145deg,  
+            rgba(255,255,255,0.07),  
+            rgba(var(--main),0.05) 55%,  
+            rgba(0,0,0,0.10)  
+        );  
+  
+    border-top:  
+        1px solid rgba(255,255,255,0.62);  
+  
+    box-shadow:  
+        inset 0 2px 3px rgba(255,255,255,0.20),  
+        inset 0 -5px 10px rgba(0,0,0,0.14);  
+}  
+  
+  
+/* =====================================================  
+   CURVED LIQUID REFLECTION  
+===================================================== */  
+  
+.tile::after {  
+    content: "";  
+  
+    position: absolute;  
+  
+    width: 125%;  
+    height: 82%;  
+  
+    left: -31%;  
+    top: 3%;  
+  
+    z-index: -1;  
+  
+    transform: rotate(-7deg);  
+  
+    border-radius: 0 0 58% 58%;  
+  
+    background:  
+        linear-gradient(  
+            180deg,  
+            rgba(255,255,255,0.22),  
+            rgba(255,255,255,0.06) 35%,  
+            transparent 58%,  
+            rgba(0,0,0,0.10) 82%  
+        );  
+  
+    pointer-events: none;  
+}  
+  
+  
+/* =====================================================  
+   NUMBER  
+===================================================== */  
+  
+.number {  
+    position: relative;  
+    z-index: 5;  
+  
+    font-size: 52px;  
+    font-weight: 700;  
+  
+    color: #ffffff;  
+  
+    letter-spacing: -1px;  
+  
+    text-shadow:  
+        0 0 2px rgba(255,255,255,0.90),  
+        0 0 6px rgba(var(--main),0.45),  
+        0 3px 5px rgba(0,0,0,0.45);  
+}  
+  
+  
+/* =====================================================  
+   NORMAL  
+   PROFESSIONAL BLUE-TEAL  
+===================================================== */  
+  
+.teal {  
+    --main: 18, 122, 135;  
+    --border: #32C7D0;  
+  
+    border-color:  
+        rgba(50,199,208,0.82);  
+  
+    box-shadow:  
+  
+        /* restrained normal edge */  
+        0 0 1px rgba(50,199,208,0.90),  
+  
+        0 0 4px rgba(50,199,208,0.35),  
+  
+        0 0 8px rgba(18,122,135,0.14),  
+  
+        /* glass depth */  
+        inset 0 2px 2px rgba(255,255,255,0.42),  
+  
+        inset 2px 0 2px rgba(255,255,255,0.10),  
+  
+        inset -2px 0 2px rgba(255,255,255,0.07),  
+  
+        inset 0 -5px 9px rgba(0,35,45,0.28);  
+}  
+  
+  
+/* =====================================================  
+   WARNING  
+   GOLD / AMBER  
+===================================================== */  
+  
+.amber {  
+    --main: 245, 170, 12;  
+    --border: #FFD83D;  
+  
+    border-color:  
+        rgba(255,216,61,0.90);  
+  
+    box-shadow:  
+  
+        0 0 1px #FFD83D,  
+  
+        0 0 5px rgba(255,216,61,0.55),  
+  
+        0 0 10px rgba(245,170,12,0.20),  
+  
+        inset 0 2px 2px rgba(255,255,255,0.50),  
+  
+        inset 2px 0 2px rgba(255,255,255,0.14),  
+  
+        inset -2px 0 2px rgba(255,255,255,0.08),  
+  
+        inset 0 -5px 9px rgba(100,55,0,0.25);  
+}  
+  
+  
+/* =====================================================  
+   CRITICAL  
+   RUBY RED  
+===================================================== */  
+  
+.red {  
+    --main: 235, 60, 76;  
+    --border: #FF5968;  
+  
+    border-color:  
+        rgba(255,89,104,0.95);  
+  
+    box-shadow:  
+  
+        0 0 1px #FF5968,  
+  
+        0 0 6px rgba(255,89,104,0.65),  
+  
+        0 0 12px rgba(235,60,76,0.24),  
+  
+        inset 0 2px 2px rgba(255,255,255,0.52),  
+  
+        inset 2px 0 2px rgba(255,255,255,0.14),  
+  
+        inset -2px 0 2px rgba(255,255,255,0.08),  
+  
+        inset 0 -5px 9px rgba(100,10,20,0.28);  
+}  
+  
+  
+/* =====================================================  
+   SHARP EDGE-ONLY HOVER  
+===================================================== */  
+  
+  
+/* =========================  
+   TEAL HOVER  
+========================= */  
+  
+.teal:hover {  
+  
+    border-color: #8DEAF0;  
+  
+    box-shadow:  
+  
+        /* razor white core */  
+        0 0 1px #FFFFFF,  
+  
+        /* bright teal core */  
+        0 0 2px #8DEAF0,  
+  
+        0 0 4px #32C7D0,  
+  
+        /* tight neon */  
+        0 0 7px rgba(50,199,208,0.95),  
+  
+        /* controlled outer bloom */  
+        0 0 12px rgba(50,199,208,0.50),  
+  
+        0 0 18px rgba(50,199,208,0.20),  
+  
+        /* illuminated inside edge */  
+        inset 0 0 2px rgba(255,255,255,0.90),  
+  
+        /* retain glass depth */  
+        inset 0 2px 2px rgba(255,255,255,0.42),  
+  
+        inset 2px 0 2px rgba(255,255,255,0.10),  
+  
+        inset -2px 0 2px rgba(255,255,255,0.07),  
+  
+        inset 0 -5px 9px rgba(0,35,45,0.28);  
+}  
+  
+  
+/* =========================  
+   AMBER HOVER  
+========================= */  
+  
+.amber:hover {  
+  
+    border-color: #FFF5B0;  
+  
+    box-shadow:  
+  
+        /* razor white core */  
+        0 0 1px #FFFFFF,  
+  
+        /* bright gold core */  
+        0 0 2px #FFF5B0,  
+  
+        0 0 4px #FFD83D,  
+  
+        /* tight neon */  
+        0 0 7px rgba(255,216,61,1),  
+  
+        /* controlled outer bloom */  
+        0 0 12px rgba(255,190,20,0.72),  
+  
+        0 0 18px rgba(255,190,20,0.30),  
+  
+        /* illuminated inside edge */  
+        inset 0 0 2px rgba(255,255,255,0.95),  
+  
+        /* glass depth */  
+        inset 0 2px 2px rgba(255,255,255,0.50),  
+  
+        inset 2px 0 2px rgba(255,255,255,0.14),  
+  
+        inset -2px 0 2px rgba(255,255,255,0.08),  
+  
+        inset 0 -5px 9px rgba(100,55,0,0.25);  
+}  
+  
+  
+/* =========================  
+   RED HOVER  
+========================= */  
+  
+.red:hover {  
+  
+    border-color: #FFC1C6;  
+  
+    box-shadow:  
+  
+        /* razor white core */  
+        0 0 1px #FFFFFF,  
+  
+        /* bright red core */  
+        0 0 2px #FFC1C6,  
+  
+        0 0 4px #FF5968,  
+  
+        /* tight neon */  
+        0 0 8px rgba(255,89,104,1),  
+  
+        /* strongest outer bloom */  
+        0 0 13px rgba(255,70,85,0.78),  
+  
+        0 0 20px rgba(255,70,85,0.34),  
+  
+        /* illuminated inside edge */  
+        inset 0 0 2px rgba(255,255,255,0.98),  
+  
+        /* glass depth */  
+        inset 0 2px 2px rgba(255,255,255,0.52),  
+  
+        inset 2px 0 2px rgba(255,255,255,0.14),  
+  
+        inset -2px 0 2px rgba(255,255,255,0.08),  
+  
+        inset 0 -5px 9px rgba(100,10,20,0.28);  
+}  
+  
+  
+/* =====================================================  
+   NO MOVEMENT ON HOVER  
+===================================================== */  
+  
+.tile:hover {  
+    transform: none;  
+    filter: none;  
+}  
+  
+  
+/* =====================================================  
+   MOBILE  
+===================================================== */  
+  
+@media (max-width: 850px) {  
+  
+    .tiles {  
+        flex-direction: column;  
+    }  
+  
+}  
+  
+</style>  </head>  <body>  <div class="tiles">  <!-- NORMAL -->  
+<div class="tile teal">  
+    <div class="number">184</div>  
+</div>  
+
+
+<!-- WARNING -->  
+<div class="tile amber">  
+    <div class="number">79.7%</div>  
+</div>  
+
+
+<!-- CRITICAL -->  
+<div class="tile red">  
+    <div class="number">2</div>  
+</div>
+
+</div>  </body>  
+</html>
